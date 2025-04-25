@@ -1,6 +1,6 @@
 let resourceList = document.getElementById("file-container")
 async function upload(){
-    let jwt = document.cookie.split("; ").find((row) => row.startsWith("jwt="))?.split("=")[1];
+    let jwt = document.cookie.split("; ").find((row) => row.startsWith("jwt="))?.split("=")[1]
     let fileToUpload = document.getElementsByName('file')[0].files[0]
     if(fileToUpload){
         let formData = new FormData()
@@ -23,7 +23,7 @@ async function upload(){
 }
 
 async function update(){
-    let jwt = document.cookie.split("; ").find((row) => row.startsWith("jwt="))?.split("=")[1];
+    let jwt = document.cookie.split("; ").find((row) => row.startsWith("jwt="))?.split("=")[1]
     let fileToUpdate = document.getElementsByName('ufile')[0].files[0]
     let fileToUpdateID = document.getElementById('id').value
     console.log(fileToUpdateID + " " + fileToUpdate)
@@ -65,7 +65,7 @@ async function list(){
     console.log(list)
     list.forEach(element => {
         let div = document.createElement("div")
-        div.innerHTML = `<p>${element.filename}</p><br><p>owner ${element.user}</p><br><button onclick=download(${element.id})>Download file</button>`
+        div.innerHTML = `<p>${element.filename} </p><p>owner ${element.user}</p><button onclick=download(${element.id})>Download file</button>`
         resourceList.appendChild(div)
     })
 }
@@ -83,18 +83,18 @@ async function download(input){
             throw new Error(`File download failed: ${response.statusText}`);
         }
         console.log(response)
-        let blob = await response.blob(); // ✅ Convert response to binary data
-        let url = URL.createObjectURL(blob);
+        let blob = await response.blob() //Convert response to binary data
+        let url = URL.createObjectURL(blob)
 
-        let a = document.createElement("a");
-        a.href = url;
-        a.download = "download"; // ✅ Sets filename for download
-        document.body.appendChild(a);
-        a.click(); // ✅ Triggers file download
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url); // ✅ Cleanup after download
+        let a = document.createElement("a")
+        a.href = url
+        a.download = "download" // Sets filename for download
+        document.body.appendChild(a)
+        a.click() // Triggers file download
+        document.body.removeChild(a)
+        URL.revokeObjectURL(url) // Cleanup after download
     } catch (error) {
-        console.error("Download error:", error);
+        console.error("Download error:", error)
     }
 }
 
