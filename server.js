@@ -16,7 +16,7 @@ app.use(express.static('public'))
 const storage = multer.diskStorage({
     destination: path.join(__dirname, './files/'), // Save files in the 'files' folder
     filename: (req, file, cb) => {
-        cb(null, file.originalname); // ✅ Store with original filename
+        cb(null, file.originalname); // Store with original filename
     }
 });
 const upload = multer({ storage: storage });
@@ -27,7 +27,7 @@ function hashString(salt, input){
   }
 //secret
 let secret_word = "fisk"
-//jwt
+//jwt buffer
 const secret = Buffer.from(secret_word)
 // Create the connection to database
 const connection = mysql.createConnection({
@@ -43,9 +43,6 @@ async function createToken(payload) {
         .setExpirationTime('2h')
         .sign(secret);
 }
-
-//createToken(input).then(jwt => {
-//    console.log(jwt);})
 
 //function to verify jwt
 async function verifyToken(req, res, next) {
@@ -155,10 +152,9 @@ app.get('/resources/:id', verifyToken,(req,res)=>{
         if (results.length === 0) {
             return res.status(404).json({ error: "File not found" });
         }
-        
-        let filepath = results[0].filepath; // ✅ Access the first row's filepath
+        let filepath = results[0].filepath;
         console.log("Resolved filepath:", filepath);
-        res.sendFile(filepath);
+        res.status(200).sendFile(filepath);
     })
 })
 
