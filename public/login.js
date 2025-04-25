@@ -1,5 +1,5 @@
 async function createCookie(id){
-    document.cookie=`name=${id}; path=/`
+    document.cookie=`jwt=${id}; path=/`
     console.log(document.cookie)
 }
 
