@@ -1,0 +1,1 @@
+import test.sql into xampp to get started!

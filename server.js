@@ -6,7 +6,6 @@ const multer = require('multer');
 const bodyParser = require('body-parser')
 const jose = require('jose') //library jose for jwt
 const hash = require('js-sha256');//lib for hash
-const { verify } = require('crypto');
 const app = express()
 //configuration
 app.use(bodyParser.urlencoded({extended:true}))
@@ -114,6 +113,7 @@ app.post('/login/signup',(req, res)=>{
     let sql = `INSERT INTO user (user, password) VALUES ('${username}', '${hashpw}')`
     connection.execute(sql, (err, results)=>{
         if(err){
+            console.log(err)
             res.status(500).send("Unable to create account!")
         }else{
             console.log("account created "+ username +" " + password)
@@ -130,6 +130,7 @@ app.post('/resources',(req,res)=>{
     const sql = 'SELECT filename, user, id FROM files'
     db.execute(sql, [], (err, results) => {
         if (err) {
+            console.log(err)
             res.status(500).json({ error: 'Error fetching data' })
             return
         }
@@ -143,6 +144,7 @@ app.get('/resources/:id', verifyToken,(req,res)=>{
     sql = `SELECT * FROM files WHERE user='${username}' AND id='${resourceId}'`
     connection.execute(sql,(err,results)=>{
         if(err){
+            console.log(err)
             res.status(500).send("Database error")
         }
         res.sendFile(results.filepath)
@@ -158,6 +160,7 @@ app.post('/create',verifyToken,upload.single('file'),(req,res)=>{
     let sql = `INSERT INTO files (user, filename, filepath) VALUES('${req.user}', '${filename}', '${filepath}')`
     connection.execute(sql,(err, results)=>{
         if(err){
+            console.log(err)
             res.status(500).send("Database error", err)
         }else{
             res.status(200).send("Upload succesfull")
@@ -172,6 +175,7 @@ app.put('/update/:id',verifyToken,upload.single('file'),(req,res)=>{
     let sql = `INSERT INTO files (user, filename, filepath) VALUES('${req.user}', '${filename}', '${filepath}') WHERE id='${resourceId}'`
     connection.execute(sql,(err, results)=>{
         if(err){
+            console.log(err)
             res.status(500).send("Database error", err)
         }else{
             res.status(200).send("Upload succesfull")

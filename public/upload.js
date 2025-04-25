@@ -1,8 +1,6 @@
-let fileToUpload = document.getElementsByName('file').files[0]
-let fileToUpdate = document.getElementsByName('ufile').files[0]
-let fileToUpdateID = document.getElementsByName('id').value
-let jwt = document.cookie.split("; ").find((row) => row.startsWith("jwt="))?.split("=")[1];
 async function upload(){
+    let jwt = document.cookie.split("; ").find((row) => row.startsWith("jwt="))?.split("=")[1];
+    let fileToUpload = document.getElementsByName('file')[0].files
     if(fileToUpload){
         let formData = new FormData()
         formData.append("file", fileToUpload)
@@ -24,6 +22,9 @@ async function upload(){
 }
 
 async function update(){
+    let jwt = document.cookie.split("; ").find((row) => row.startsWith("jwt="))?.split("=")[1];
+    let fileToUpdate = document.getElementsByName('ufile')[0].files
+    let fileToUpdateID = document.getElementsByName('id').value
     if(fileToUpdate){
         let id = fileToUpdateID
         let formData = new FormData()
