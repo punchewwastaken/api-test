@@ -68,7 +68,7 @@ async function verifyToken(req, res, next) {
         })
     } catch (error) {
         console.log(error)
-        res.status(403).json({ error: "Invalid token" }).sendFile(path.join(__dirname+'/public/403.html'))
+        res.status(403).json({ error: "Invalid token" })
     }
 }
 
@@ -118,7 +118,7 @@ app.post('/login/signup',(req, res)=>{
             res.status(500).send("Unable to create account!")
         }else{
             console.log("account created "+ username +" " + password)
-            res.status(200).sendFile(__dirname+'/public/upload.html')
+            res.status(200)
         }
     })
 })

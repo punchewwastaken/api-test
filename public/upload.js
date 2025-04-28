@@ -42,7 +42,7 @@ async function update(){
         if(response.ok){
             alert("file succesfully updated!")
         }else{
-            alert("Internal server error: file not updated")
+            alert("Internal server error: file not updated! Is your token valid?")
         }
     }else{
         alert("No file to update!")
