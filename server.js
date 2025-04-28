@@ -68,7 +68,7 @@ async function verifyToken(req, res, next) {
         })
     } catch (error) {
         console.log(error)
-        res.status(403).json({ error: "Invalid token" })
+        res.status(403).json({ error: "Invalid token" }).sendFile(path.join(__dirname+'/public/403.html'))
     }
 }
 
